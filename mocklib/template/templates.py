@@ -1,46 +1,48 @@
-tmp_import_mocklib = '''
-import mocklib
-
+MODULES_INIT_HEADER = '''
 EQUAL_KEY = ['']
+
 '''
-tmp_create_dict = '''
-{upperName} = mocklib.create_dict_from_svfile(
-            configPath='dicts/{upperName}/{upperName}.json',
-            dataPath='dicts/{upperName}/{upperName}.tsv',
+MODULES_INIT_IMPORT = '''
+from .{upperName}.{upperName} import *
+'''
+
+MODULES_MAIN = '''
+import mocklib
+import modules
+
+{upperName}_DICT = mocklib.create_dict_from_svfile(
+            configPath='modules/{upperName}/{upperName}.json',
+            dataPath='modules/{upperName}/{upperName}.tsv',
         )
 {upperName}_KEYS = [
             '',
         ]
-'''
-tmp_addrow_header = '''
-import mocklib
-import dicts
 
-def addRow(row):
-'''
-tmp_get_value = '''
-    for key in dicts.{upperName}_KEYS:
-        # {upperName}
+def {upperName}_ADD_ROW(row):
+    for key in {upperName}_KEYS:
         row[key] = mocklib.get_dict_in_list_value(
-                    targetDictList=dicts.{upperName},
+                    targetDictList={upperName}_DICT,
                     rowDict=row,
                     key=key,
-                    equalKey=dicts.EQUAL_KEY,
+                    equalKey=modules.EQUAL_KEY,
                     errorDisp=True,
                 )
+    return row
 '''
-tmp_return_row = '''    return row'''
-
-tmp_run_py = '''
+RUN_PY_INITIAL_MAIN = '''
 import mocklib
-import dicts
-import addrow
+import modules
 
-ShopData = [addrow.addRow(row) for row in dicts.{upperName}]
+def _addRow(row):
+    return row
+
+output = [_addRow(row) for row in modules.{upperName}_DICT]
 
 mocklib.output_json_from_dict(
             outPath='OUTPUT.json',
-            outDict=dict(test=ShopData)
+            outDict=dict(output=output)
         )
 '''
-
+RETURN_ROW = '''    return row'''
+REPLACE_FUNCTION = '''    row = modules.{upperName}_ADD_ROW(row)
+'''
