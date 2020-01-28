@@ -27,6 +27,10 @@ def _create_modules(modules):
         with open(pyFile, mode='w') as f:
             f.write(template.MODULES_MAIN.format(upperName=moduleTitle.upper()))
 
+    print('1. modified EQUAL_KEY : modules/__init__.py')
+    print('2. modified MODULE_KEYS : module/ .py file')
+    print('3. add data : module/ .tsv & .json file')
+
 def main(as_module=False):
     print('create module')
     modules = input().split()

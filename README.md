@@ -21,3 +21,4 @@ $ python -m mocklib
 - [ ] unittest
 - [ ] add delimiter to args
 - [ ] add make again option to cli args
+- [ ] color cli message
