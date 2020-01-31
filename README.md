@@ -1,8 +1,4 @@
-### mocklib
-
-モックデータを作成する際のtips集
-
-##### develop
+#### develop
 
 - install and uninstall
 ```
@@ -10,13 +6,13 @@ $ python setup.py develop
 $ python setup.py develop -u
 ```
 
-##### cli
+#### run cli
 
 ```
 $ python -m mocklib
 ```
 
-##### memo
+#### memo
 
 - [ ] unittest
 - [ ] add delimiter to args
