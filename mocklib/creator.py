@@ -56,6 +56,7 @@ def get_dict_in_list_value(*, targetDictList, rowDict, key, equalKey, errorDisp)
     checked_value = [target[key] for target in targetDictList if key in target]
     if len(checked_value) == 0:
         print('key does not exist !!!!')
+        print(key)
         sys.exit()
     hit_items = [target[key] for target in targetDictList if _condition_equal(target, rowDict, equalKey)]
     if len(hit_items) == 0:
